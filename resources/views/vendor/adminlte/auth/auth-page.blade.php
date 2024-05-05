@@ -48,7 +48,7 @@
         </div>
 
         {{-- Card Box --}}
-        <div class="card {{ config('adminlte.classes_auth_card', 'card-outline card-primary') }}">
+        <div class="card {{ config('adminlte.classes_auth_card', 'card-outline card-danger') }}">
 
             {{-- Card Header --}}
             @hasSection('auth_header')
