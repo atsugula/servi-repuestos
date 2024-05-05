@@ -17,11 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('nombre', 190);
             $table->string('marca', 190)->nullable();
-            $table->string('codigo', 190);
-            $table->double('precio_costo');
-            $table->double('precio_venta');
+            $table->text('codigo_escaner')->nullable();
+            $table->text('codigo_propio')->nullable();
+            $table->double('precio_costo')->nullable();
+            $table->double('precio_venta')->nullable();
             $table->string('observaciones')->nullable()->default('N/A');
-            $table->unsignedBigInteger('id_categoria');
+            $table->unsignedBigInteger('id_categoria')->nullable();
             $table->unsignedBigInteger('id_proveedor')->nullable()->default(1);
             $table->bigInteger('stock')->nullable()->default('0');
             $table->double('porcentaje')->nullable()->default('0.00');

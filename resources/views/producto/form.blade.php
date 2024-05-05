@@ -20,20 +20,27 @@
         <div class="row">
             <div class="col-12 col-md-6">
                 <div class="form-group">
-                    {{ Form::label('codigo',__('Code')) }}
-                    {{ Form::text('codigo', $producto->codigo, ['class' => 'form-control' . ($errors->has('codigo') ? ' is-invalid' : ''),'readonly', 'placeholder' => __('Code')]) }}
-                    {!! $errors->first('codigo', '<div class="invalid-feedback">:message</div>') !!}
+                    {{ Form::label('codigo_escaner', 'Código escaner') }}
+                    {{ Form::text('codigo_escaner', $producto->codigo_escaner, ['class' => 'form-control' . ($errors->has('codigo_escaner') ? ' is-invalid' : ''), 'placeholder' => __('Code')]) }}
+                    {!! $errors->first('codigo_escaner', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
             </div>
             <div class="col-12 col-md-6">
                 <div class="form-group">
-                    {{ Form::label('nombre',__('Name')) }}
-                    {{ Form::text('nombre', $producto->nombre, ['class' => 'form-control' . ($errors->has('nombre') ? ' is-invalid' : ''), 'placeholder' => __('Name')]) }}
-                    {!! $errors->first('nombre', '<div class="invalid-feedback">:message</div>') !!}
+                    {{ Form::label('codigo_propio', 'Código propio') }}
+                    {{ Form::text('codigo_propio', $producto->codigo_propio, ['class' => 'form-control' . ($errors->has('codigo_propio') ? ' is-invalid' : ''), 'placeholder' => __('Code')]) }}
+                    {!! $errors->first('codigo_propio', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
             </div>
         </div>
         <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    {{ Form::label('nombre', 'Nombre Producto') }}
+                    {{ Form::text('nombre', $producto->nombre, ['class' => 'form-control' . ($errors->has('nombre') ? ' is-invalid' : ''), 'placeholder' => __('Name')]) }}
+                    {!! $errors->first('nombre', '<div class="invalid-feedback">:message</div>') !!}
+                </div>
+            </div>
             <div class="col-12 col-md-12">
                 <div class="form-group">
                     {{ Form::label('marca',__('Branch')) }}
@@ -66,7 +73,7 @@
             </div>
             <div class="col-12 col-md-3">
                 <div class="form-group">
-                    {{ Form::label('stock',__('Stock')) }}
+                    {{ Form::label('stock', 'Cantidad en stock') }}
                     {{ Form::number('stock', $producto->stock, ['class' => 'form-control stock' . ($errors->has('stock') ? ' is-invalid' : ''), 'min'=>'0','placeholder' => __('Stock')]) }}
                     {!! $errors->first('stock', '<div class="invalid-feedback">:message</div>') !!}
                 </div>

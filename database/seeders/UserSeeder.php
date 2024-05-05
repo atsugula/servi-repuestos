@@ -23,26 +23,5 @@ class UserSeeder extends Seeder
             'password' => Hash::make('567202210'),
             'tipo_usuario' => 0,
         ]);
-        User::create([
-            'name' => 'ISABEL CRISTINA',
-            'apellido' => 'VICTORIA TRIVINO',
-            'cedula' => '1113782441',
-            'password' => Hash::make('1113782441'),
-            'tipo_usuario' => 0,
-        ]);
-        User::create([
-            'name' => 'EDWARD',
-            'apellido' => 'GALVIS ORTIZ',
-            'cedula' => '16554385',
-            'password' => Hash::make('16554385'),
-            'tipo_usuario' => 0,
-        ]);
-        User::create([
-            'name' => 'JHOANNA',
-            'apellido' => 'AMEZQUITA',
-            'cedula' => '1113793332',
-            'password' => Hash::make('1113793332'),
-            'tipo_usuario' => 1,
-        ]);
     }
 }

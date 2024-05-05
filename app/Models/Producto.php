@@ -37,8 +37,8 @@ class Producto extends Model
 		'precio_venta' => 'required',
 		'porcentaje' => 'required',
 		'stock' => 'required',
-		'id_categoria' => 'required',
-		'id_proveedor' => 'required',
+		// 'id_categoria' => 'required',
+		// 'id_proveedor' => 'required',
     ];
 
     protected $perPage = 30;
@@ -48,7 +48,19 @@ class Producto extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre','marca','codigo','precio_costo','precio_venta','observaciones','id_categoria','id_proveedor','stock','porcentaje'];
+    protected $fillable = [
+        'nombre',
+        'marca',
+        'codigo_escaner',
+        'codigo_propio',
+        'precio_costo',
+        'precio_venta',
+        'observaciones',
+        'id_categoria',
+        'id_proveedor',
+        'stock',
+        'porcentaje',
+    ];
 
 
     /**
