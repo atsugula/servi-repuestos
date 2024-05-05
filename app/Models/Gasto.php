@@ -23,7 +23,7 @@ class Gasto extends Model
 
     static $rules = [
 		'valor' => 'required',
-		'observaciones' => 'required',
+		// 'observaciones' => 'required',
 		'id_tipo_gasto' => 'required',
     ];
 

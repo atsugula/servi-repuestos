@@ -12,6 +12,7 @@ use App\Http\Controllers\TipoGastoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\ConfiguracioneController;
+use App\Http\Controllers\ServicioController;
 
 //Personalizamos las vistas del Auth
 Route::namespace('Auth')->group(function(){
@@ -37,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Modulos donde se habilita que metodo se ejecuta
     Route::resource('gastos',GastoController::class)->names('gastos');
     Route::resource('productos', ProductoController::class)->names('productos');
+    Route::resource('servicios', ServicioController::class)->names('servicios');
     Route::resource('ventas', VentaController::class)
         ->only('index','create','store','edit','update','destroy')->names('ventas');
 

@@ -32,13 +32,18 @@ class Producto extends Model
     static $rules = [
 		'nombre' => 'required',
 		'marca' => 'required',
-		'codigo' => 'required',
 		'precio_costo' => 'required',
 		'precio_venta' => 'required',
 		'porcentaje' => 'required',
 		'stock' => 'required',
-		'id_categoria' => 'required',
-		'id_proveedor' => 'required',
+    ];
+
+    static $ruleService = [
+		'codigo_propio' => 'required',
+		'nombre' => 'required',
+		'precio_costo' => 'required',
+		'porcentaje' => 'required',
+		'precio_venta' => 'required',
     ];
 
     protected $perPage = 30;
@@ -48,7 +53,21 @@ class Producto extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre','marca','codigo','precio_costo','precio_venta','observaciones','id_categoria','id_proveedor','stock','porcentaje'];
+    protected $fillable = [
+        'type',
+        'ganancia',
+        'nombre',
+        'marca',
+        'codigo_escaner',
+        'codigo_propio',
+        'precio_costo',
+        'precio_venta',
+        'observaciones',
+        'id_categoria',
+        'id_proveedor',
+        'stock',
+        'porcentaje',
+    ];
 
 
     /**

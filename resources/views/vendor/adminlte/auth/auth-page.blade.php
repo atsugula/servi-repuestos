@@ -42,7 +42,7 @@
                 @endif
 
                 {{-- Logo Label --}}
-                <strong class="log-text">{!! 'SERVIEGO' !!}</strong>
+                <strong class="log-text">{!! 'REPUESTOS' !!}</strong>
 
             </a>
         </div>
