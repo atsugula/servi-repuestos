@@ -1,0 +1,1 @@
+[25-Mar-2023 11:21:20 America/Bogota] PHP Fatal error:  Out of memory (allocated 1770000384) (tried to allocate 20480 bytes) in /home/ssisetco/repositories/api-cultura/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php on line 557

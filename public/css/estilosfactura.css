@@ -1,0 +1,68 @@
+* {
+    font-size: 12px;
+    font-family: 'DejaVu Sans', serif;
+}
+
+h1 {
+    font-size: 18px;
+}
+
+.ticket {
+    margin: 2px;
+}
+
+td,
+th,
+tr,
+table {
+    border-top: 1px solid black;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+td.precio {
+    text-align: right;
+    font-size: 11px;
+}
+
+td.cantidad {
+    font-size: 11px;
+}
+
+td.producto {
+    text-align: center;
+}
+
+th {
+    text-align: center;
+}
+
+
+.centrado {
+    text-align: center;
+    align-content: center;
+}
+
+.ticket {
+    width: 180px;
+    max-width: 180px;
+}
+
+img {
+    max-width: inherit;
+    width: inherit;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.ticket {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    text-align: center;
+}
