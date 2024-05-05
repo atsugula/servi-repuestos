@@ -28,43 +28,33 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped table-hover table-productos">
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
 
-										<th>{{__('Tipo')}}</th>
 										<th>{{__('Name')}}</th>
-										<th>{{__('Código escaner')}}</th>
-										<th>{{__('Código propio')}}</th>
+										<th>{{__('Branch')}}</th>
+										<th>{{__('Code')}}</th>
 										<th>{{__('Stock')}}</th>
-										<th>{{__('Cost price')}}</th>
 										<th>{{__('Sale price')}}</th>
-										<th>{{__('Ganancia')}}</th>
 
                                         <th>{{__('Actions')}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($productos as $producto)
-                                        <tr>
+                                        <tr class="{{$producto->stock <= 3 ? 'table-danger' : ''}}">
                                             <td>{{ ++$i }}</td>
-											<td>{{ $producto->type ? 'Servicio' : 'Producto' }}</td>
 											<td>{{ $producto->nombre }}</td>
-											<td>{{ $producto->codigo_escaner }}</td>
-											<td>{{ $producto->codigo_propio }}</td>
+											<td>{{ $producto->marca }}</td>
+											<td>{{ $producto->codigo }}</td>
 											<td>{{ $producto->stock }}</td>
-											<td>{{ $producto->precio_costo }}</td>
 											<td>{{ $producto->precio_venta }}</td>
-											<td>{{ $producto->ganancia }}</td>
 
                                             <td>
                                                 <form action="{{ route('productos.destroy',$producto->id) }}" method="POST" class="form-delete">
-                                                    @if ($producto->type)
-                                                        <a class="btn btn-sm btn-success" href="{{ route('servicios.edit', $producto->id) }}"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @else
-                                                        <a class="btn btn-sm btn-success" href="{{ route('productos.edit', $producto->id) }}"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @endif
+                                                    <a class="btn btn-sm btn-success" href="{{ route('productos.edit',$producto->id) }}"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>

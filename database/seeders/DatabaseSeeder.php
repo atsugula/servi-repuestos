@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
             ConfigSeeder::class,
             ProveedorSeeder::class,
             ProductoSeeder::class,
-            TipoGastoSeeder::class,
             UserSeeder::class, */
+            TipoGastoSeeder::class,
             UserSeeder::class,
             DataSystemSeeder::class,
         ]);

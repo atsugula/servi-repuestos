@@ -11,7 +11,7 @@ trait Backup
 
         // Variables para la conexion a la base de datos, mysqldump
         $db_host=env('DB_HOST', 'localhost');
-        $db_name=env('DB_DATABASE', 'serviego');
+        $db_name=env('DB_DATABASE', 'repuestos');
         $db_user=env('DB_USERNAME', 'root');
         $db_password=env('DB_PASSWORD', '');
 

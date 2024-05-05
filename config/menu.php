@@ -22,13 +22,23 @@ return [
         'icon' => 'fa fa-industry',
     ],
     [
-        'text'    => 'Productos',
+        'text'    => 'Administrar Productos',
         'icon'    => 'fa fa-archive',
         'submenu' => [
             [
-                'text' => 'Administrar productos',
+                'text' => 'Listados',
                 'url' => 'productos',
                 'icon' => 'fa fa-shopping-basket',
+            ],
+            [
+                'text' => 'Nuevo producto',
+                'url' => 'productos/create',
+                'icon' => 'fa fa-plus-circle',
+            ],
+            [
+                'text' => 'Nuevo servicio',
+                'url' => 'servicios/create',
+                'icon' => 'fa fa-plus-square',
             ],
             [
                 'text' => 'Generar reporte',

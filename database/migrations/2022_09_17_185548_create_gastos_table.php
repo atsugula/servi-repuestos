@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->double('valor');
             $table->timestamp('fecha');
-            $table->text('observaciones');
+            $table->text('observaciones')->nullable();
             $table->unsignedBigInteger('id_tipo_gasto');
             $table->foreign('id_tipo_gasto')->references('id')->on('tipo_gastos');
         });

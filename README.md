@@ -9,7 +9,7 @@ _A very cool project in which we integrated several technologies with which we c
 _Clone the project wherever you want_
 
 ```
-git clone git@github.com:atsugula/serviego.git
+git clone git@github.com:atsugula/repuestos.git
 ```
 
 _Installation composer_

@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
+            $table->char('type')->default(0);
+            $table->string('ganancia');
             $table->string('nombre', 190);
             $table->string('marca', 190)->nullable();
             $table->text('codigo_escaner')->nullable();
@@ -23,7 +25,7 @@ return new class extends Migration
             $table->double('precio_venta')->nullable();
             $table->string('observaciones')->nullable()->default('N/A');
             $table->unsignedBigInteger('id_categoria')->nullable();
-            $table->unsignedBigInteger('id_proveedor')->nullable()->default(1);
+            $table->unsignedBigInteger('id_proveedor')->nullable();
             $table->bigInteger('stock')->nullable()->default('0');
             $table->double('porcentaje')->nullable()->default('0.00');
             $table->foreign('id_categoria')->references('id')->on('categorias');

@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
  * Class ProductoController
  * @package App\Http\Controllers
  */
-class ProductoController extends Controller
+class ServicioController extends Controller
 {
     use Template;
     /**
@@ -31,7 +31,7 @@ class ProductoController extends Controller
         $buscarpor=$request->get('buscarpor');
         if ($buscarpor == null) $productos = Producto::paginate();
         $productos = Producto::where('nombre','like','%' . $buscarpor . '%')->paginate();
-        return view('producto.index', compact('productos','buscarpor'))
+        return view('servicio.index', compact('productos','buscarpor'))
             ->with('i', (request()->input('page', 1) - 1) * $productos->perPage());
     }
 
@@ -45,7 +45,7 @@ class ProductoController extends Controller
         $producto = new Producto();
         $categorias = Categoria::pluck('nombre','id');
         $proveedores = Proveedore::pluck('nombre','id');
-        return view('producto.create', compact('producto','categorias','proveedores'));
+        return view('servicio.create', compact('producto','categorias','proveedores'));
     }
 
     /**
@@ -55,11 +55,13 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
-        request()->validate(Producto::$rules);
+    {
+        request()->validate(Producto::$ruleService);
+
+        $request['type'] = 1;
 
         $request['ganancia'] = ($request['porcentaje'] / 100) * $request['precio_costo'];
-
+        
         $data = $request->all();
 
         $producto = Producto::create($data);
@@ -79,7 +81,7 @@ class ProductoController extends Controller
         $producto = Producto::find($id);
         //si no trae nada genere un error
         if(empty($producto))return view('errors.404');
-        return view('producto.show', compact('producto'));
+        return view('servicio.show', compact('producto'));
     }
 
     /**
@@ -95,7 +97,7 @@ class ProductoController extends Controller
         if(empty($producto))return view('errors.404');
         $categorias = Categoria::pluck('nombre','id');
         $proveedores = Proveedore::pluck('nombre','id');
-        return view('producto.edit', compact('producto','categorias','proveedores'));
+        return view('servicio.edit', compact('producto','categorias','proveedores'));
     }
 
     /**
@@ -109,7 +111,9 @@ class ProductoController extends Controller
     {
         $producto = Producto::findOrFail($id);
 
-        request()->validate(Producto::$rules);
+        request()->validate(Producto::$ruleService);
+
+        $request['ganancia'] = ($request['porcentaje'] / 100) * $request['precio_costo'];
 
         $producto->update($request->all());
 
@@ -130,7 +134,7 @@ class ProductoController extends Controller
         //si no trae nada genere un error
         if(empty($producto))return view('errors.404');
         //Buscamos si tiene ventas registradas
-        $conVentas = ProductoController::traerVentaProducto($id);
+        $conVentas = ServicioController::traerVentaProducto($id);
         if($conVentas == 0)$producto->delete();
         else {
             $message = 'There are sales with this product.';
