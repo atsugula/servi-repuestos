@@ -1,6 +1,6 @@
 @extends('layouts.app4')
 
-@section('title', 'Factura venta')
+@section('title', 'Recibo cotización')
 
 @section('content')
     <div class="ticket centrado">

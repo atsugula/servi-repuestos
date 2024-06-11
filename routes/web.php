@@ -1,18 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\GastoController;
-use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\ProveedoreController;
-use App\Http\Controllers\TipoGastoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\GastoController;
 use App\Http\Controllers\VentaController;
-use App\Http\Controllers\ConfiguracioneController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ServicioController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\TipoGastoController;
+use App\Http\Controllers\ProveedoreController;
+use App\Http\Controllers\CotizacionController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ConfiguracioneController;
 
 //Personalizamos las vistas del Auth
 Route::namespace('Auth')->group(function(){
@@ -41,6 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('servicios', ServicioController::class)->names('servicios');
     Route::resource('ventas', VentaController::class)
         ->only('index','create','store','edit','update','destroy')->names('ventas');
+    Route::resource('cotizaciones', CotizacionController::class)
+        ->only('index','create','store','edit','update','destroy')->names('cotizaciones');
 
     //Personalizar usuario, despues de logearse
     Route::get('/cambiar-contrasena', [UserController::class, 'showFormChangePassword']);
@@ -52,12 +55,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('reportes/productos', [ProductoController::class, 'reportes']);
     Route::get('pdf/gastos', [GastoController::class, 'PDF'])->name('gastos.reporte.pdf');
     Route::get('ventas/pdf', [VentaController::class, 'rangoPDF'])->name('ventas.rango.pdf');
-    Route::post('ventas/pdf', [VentaController::class, 'rangoPDF']);
+    Route::post('cotizaciones/pdf', [ProductoController::class, 'rangoPDF'])->name('cotizaciones.rango.pdf');
 
     Route::get('products/export', [ProductoController::class, 'exportReport'])->name('productos.reporte.excel');
 
     //Traer las facturas generadas
     Route::get('ventas/factura/{id}', [VentaController::class, 'facturaVenta'])->name('ventas.factura');
+    Route::get('cotizaciones/recibo/{id}', [CotizacionController::class, 'facturaVenta'])->name('cotizaciones.recibo');
 
     //Realizar copias de seguridad o backup
     Route::get('backups', [ConfiguracioneController::class, 'generarBackup'])->name('backup');

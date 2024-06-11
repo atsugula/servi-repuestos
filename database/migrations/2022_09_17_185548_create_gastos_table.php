@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('gastos', function (Blueprint $table) {
             $table->id();
-            $table->double('valor');
+            $table->string('valor');
             $table->timestamp('fecha');
             $table->text('observaciones')->nullable();
             $table->unsignedBigInteger('id_tipo_gasto');

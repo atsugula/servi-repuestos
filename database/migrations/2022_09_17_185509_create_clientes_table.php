@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
             $table->string('nombre',30);
-            $table->bigInteger('cedula');
+            $table->string('cedula');
             $table->string('apellido',30);
             $table->string('telefono',15)->nullable()->default('N/A');
             $table->string('direccion',30)->nullable()->default('N/A');

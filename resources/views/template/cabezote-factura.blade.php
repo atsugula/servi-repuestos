@@ -1,8 +1,11 @@
-<strong><h2>SERVI REPUESTOS EGO</h2></strong>
-<h4>ALMACEN Y TALLER DE MOTOS</h4>
-<h4>NIT: 29185563-4</h4>
-<h2>Cra 6 # 7-03</h2>
-<h2>Telefono: 3106310964</h2>
-<h2>Código ticket #{{ $codigo }}</h2>
-<h2><?php date_default_timezone_set('America/Bogota'); ?></h2>
-<h2>{{ date('Y-m-d h:i:s a', time()) }}</h2>
+<div class="cabezote">
+    <h2 class="mt16">YAMA-STORE</h2>
+    <div class="cabezote-direccion">
+        <span class="mt8 text-left">Dirección: Cra 6 # 7-03</span>
+        <span class="mt8 text-right">Telefono: 314 5869506</span>
+        <h2 class="mt8">Tuluá - Valle del Cauca</h2>
+    </div>
+    <h2 class="mt8 text-left margen-left">FACTURACION POS No: {{ $codigo }}</h2>
+    <h2 class="mt8 text-left margen-left"><?php date_default_timezone_set('America/Bogota'); ?></h2>
+    <h2 class="mt8 text-left margen-left">Fecha: {{ date('Y-m-d h:i:s a', time()) }}</h2>
+</div>

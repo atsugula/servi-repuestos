@@ -86,4 +86,20 @@ return [
             ],
         ],
     ],
+    [
+        'text'    => 'Cotizaciones',
+        'icon'    => 'fa fa-shopping-bag',
+        'submenu' => [
+            [
+                'text' => 'Administrar cotizaciones',
+                'url' => 'cotizaciones',
+                'icon' => 'fa fa-shopping-bag',
+            ],
+            [
+                'text' => 'Crear Cotización',
+                'url' => 'cotizaciones/create',
+                'icon' => 'fa fa-shopping-cart',
+            ],
+        ],
+    ],
 ];
