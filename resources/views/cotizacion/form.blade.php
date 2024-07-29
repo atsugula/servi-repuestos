@@ -34,6 +34,16 @@
                     {!! $errors->first('id_cliente', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
             </div>
+            <div class="col-12 col-md-6">
+                <!--=====================================
+                    ENTRADA PARA EL TIPO DE PAGO
+                ======================================-->
+                <div class="form-group">
+                    {{ Form::label('tipo_pago',__('Type of payment')) }}
+                    {{ Form::select('tipo_pago', ['Contado','Crédito'], $venta->tipo_pago, ['class' => 'form-control select2 tipoPago' . ($errors->has('tipo_pago') ? ' is-invalid' : ''), 'placeholder' => __('Select the type of payment')]) }}
+                    {!! $errors->first('tipo_pago', '<div class="invalid-feedback">:message</div>') !!}
+                </div>
+            </div>
         </div>
         <!--=====================================
         GUARDAR PRODUCTOS SELECCIONADOS
@@ -49,7 +59,7 @@
                     foreach ($listaProducto as $key => $value) {
                         $nuevoStockProducto = $stocks[$key] - $value['cantidad'];
                         echo    '<div class="row">
-                                    <div class="col-12 col-md-6">
+                                    <div class="col-12 col-md-4">
                                         <label for="nuevaDescripcion">Seleccione un producto</label>
                                         <div class="input-group">
                                             <button type="button" class="btn btn-danger quitarProducto" idProducto="'.$value['id'].'"><i class="fa fa-times"></i></button>
@@ -60,6 +70,12 @@
                                         <div class="form-group">
                                             <label for="nuevaCantidad">Ingrese la cantidad a vender</label>
                                             <input type="number" class="form-control nuevaCantidad" name="nuevaCantidad" min="1" value="'.$value['cantidad'].'" stock="'.$stocks[$key].'" nuevoStock="'.$nuevoStockProducto.'" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="nuevoDescuento">Descuento</label>
+                                            <input type="number" class="form-control nuevoDescuento" name="nuevoDescuento" min="0" value="'.$value['descuento'].'" required>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-3">
@@ -81,14 +97,14 @@
         <button type="button" class="btn btn-success btn-block btnAgregarProducto">{{__('Add product')}}</button>
         <hr>
         <div class="row">
-            {{-- <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6">
                 <div class="form-group">
                     {{ Form::label('saldo_pendiente',__('Balance due')) }}
                     {{ Form::number('saldo_pendiente', $venta->saldo_pendiente, ['class' => 'form-control','readonly','required','id'=>'saldo_pendiente' . ($errors->has('saldo_pendiente') ? ' is-invalid' : ''), 'placeholder' => '000000']) }}
                     {!! $errors->first('saldo_pendiente', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
-            </div> --}}
-            <div class="col-12 col-md-12">
+            </div>
+            <div class="col-12 col-md-6">
                 <div class="form-group">
                     {{ Form::label('total',__('Total')) }}
                     {{ Form::number('total', $venta->total, ['class' => 'form-control','readonly','required','id'=>'nuevoTotalVenta' . ($errors->has('total') ? ' is-invalid' : ''), 'placeholder' => '000000']) }}

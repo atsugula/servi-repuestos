@@ -49,12 +49,13 @@ class CotizacionController extends Controller
             'total' => $request['total'],
         ];
         
-        $cliente = Cliente::find($data['id_cliente']);
+        /* $cliente = Cliente::find($data['id_cliente']);
 
         $cliente->update([
             'total_compras'=>$cliente->total_compras+1,
             'ultima_compra'=>date('Y-m-d'),
-        ]);
+        ]); */
+
         Cotizacion::create($data);
         return redirect()->route('cotizaciones.index')
             ->with('success', 'Created successfully.');

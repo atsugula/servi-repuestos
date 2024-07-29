@@ -115,9 +115,10 @@ trait Template
             array_push($respuesta, [
                 'id' => $listaproducto['id'],
                 'stock' => $listaproducto->stock,
-                'nombre' => $listaproducto->nombre . ' - ' . $listaproducto->marca,
+                'nombre' => $listaproducto->nombre . ' - ' . $listaproducto->codigo_propio . ' - ' . $listaproducto->codigo_escaner,
                 'precioVender' => $listaproducto->precio_venta,
-                'combi_nombre' => $listaproducto->nombre . ' ' .$listaproducto->marca,
+                'precioCosto' => $listaproducto->precio_costo,
+                'combi_nombre' => $listaproducto->nombre . ' - ' . $listaproducto->codigo_propio . ' - ' . $listaproducto->codigo_escaner,
             ]);
         }
         return $respuesta;

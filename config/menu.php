@@ -88,7 +88,7 @@ return [
     ],
     [
         'text'    => 'Cotizaciones',
-        'icon'    => 'fa fa-shopping-bag',
+        'icon'    => 'fa fa-list-alt',
         'submenu' => [
             [
                 'text' => 'Administrar cotizaciones',
