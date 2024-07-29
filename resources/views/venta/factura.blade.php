@@ -27,13 +27,15 @@
                 @forelse ($productos as $producto)
                     @php
                         $total += $producto["cantidad"] * $producto["precio"];
+                        $parts = explode(' - ', $producto["descripcion"]);
+                        $firstDescripcion = $parts[0];
                     @endphp
                     <tr>
                         <th class="mt8">
                             {{ $producto["codigo_propio"] }}
                         </th>
                         <th class="mt8">
-                            {{ $producto["descripcion"] }}
+                            {{ $firstDescripcion }}
                         </th>
                     </tr>
                     <tr>

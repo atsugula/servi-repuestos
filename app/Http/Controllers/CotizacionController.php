@@ -47,6 +47,7 @@ class CotizacionController extends Controller
             'id_usuario' => $request['id_usuario'],
             'productos' => $request['listaProductos'],
             'total' => $request['total'],
+            'fecha' => now(),
         ];
         
         /* $cliente = Cliente::find($data['id_cliente']);

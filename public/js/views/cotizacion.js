@@ -42,7 +42,7 @@ $('.btnAgregarProducto').on('click',function(){
                     '<label for="nuevoPrecio">Ingrese el precio del producto</label>'+
                     '<div class="input-group">'+
                         '<input type="number" class="form-control nuevoPrecio" name="nuevoPrecio" min="50" required>'+
-                        '<input type="number" class="form-control precioCosto" name="precioCosto" min="50" disabled>'+
+                        '<input type="number" class="form-control precioCosto" name="precioCosto" min="50">'+
                         '<button type="button" class="btn btn-danger quitarProducto" idProducto><i class="fa fa-times"></i></button>'+
                     '</div>'+
                 ' </div>'+
@@ -213,7 +213,6 @@ function sumarTotalPrecios(){
     for (var i = 0; i < cantidadItem.length; i++) {
         var precioCosto = Number($(precioCostoItem[i]).val());
         var descuento = Number($(descuentoItem[i]).val());
-
         var precioConDescuento = 0;
 
         // Verificar si el descuento no está vacío y es un número

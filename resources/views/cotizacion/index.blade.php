@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    {{ __('Sales') }}
+    Cotizaciones
 @endsection
 
 @section('plugins.DateRangePicker', true)
@@ -18,7 +18,7 @@
                                 {{ __('Cotizaciones') }}
                             </span>
 
-                            <form action="{{ route('cotizaciones.rango.pdf') }}" method="POST">
+                            {{-- <form action="{{ route('cotizaciones.rango.pdf') }}" method="POST">
                                 @csrf
                                 <input id="fechaInicial" name="fechaInicial" type="hidden">
                                 <input id="fechaFinal" name="fechaFinal" type="hidden">
@@ -30,7 +30,7 @@
 
                                 </button>
                                 <button type="submit" class="btn btn-primary">Traer reporte <i class="fa fa-file"></i></button>
-                            </form>
+                            </form> --}}
                         </div>
                     </div>
 

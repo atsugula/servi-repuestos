@@ -47,6 +47,7 @@ class VentaController extends Controller
             'id_usuario' => $request['id_usuario'],
             'productos' => $request['listaProductos'],
             'total' => $request['total'],
+            'fecha' => now(),
         ];
         $respuesta = $this->actualizarProducto($this->decodificar($request['listaProductos']));
         if($respuesta){
@@ -182,7 +183,23 @@ class VentaController extends Controller
     public function facturaVenta($id){
         $venta = Venta::find($id);
         $codigo = $venta->codigo;
-        $pdf = Pdf::loadview('venta.factura',compact('venta','codigo'));
+
+        $listaProductos = json_decode($venta->productos, true);
+
+        $productos = [];
+
+        foreach ($listaProductos as $key => $producto) {
+            // Buscamos el producto
+            $model = Producto::where('id', $producto["id"])->first();
+            // añadimos los campos al array
+            $model["descripcion"] = $producto["descripcion"];
+            $model["cantidad"] = $producto["cantidad"];
+            $model["precio"] = $producto["precio"];
+            // Incluimos esto a la lista de productos
+            array_push($productos, $model);
+        }
+
+        $pdf = Pdf::loadview('venta.factura',compact('venta','codigo','productos'));
         $pdf->setPaper('b7', 'portrait');
         return $pdf->stream('reporte.pdf');
     }

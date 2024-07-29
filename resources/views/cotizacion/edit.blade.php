@@ -21,11 +21,11 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form id="formVenta" method="POST" action="{{ route('cotizaciones.update', $venta->id) }}"  role="form" enctype="multipart/form-data">
+                        <form id="formCotizacion" method="POST" action="{{ route('cotizaciones.update', $venta->id) }}"  role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('venta.form')
+                            @include('cotizacion.form')
 
                         </form>
                     </div>
@@ -37,6 +37,6 @@
 
 @section('js')
 
-    <script src="{{ asset('js/views/venta.js') }}"></script>
+    <script src="{{ asset('js/views/cotizacion.js') }}"></script>
 
 @endsection
