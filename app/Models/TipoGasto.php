@@ -20,6 +20,7 @@ class TipoGasto extends Model
 
     static $rules = [
 		'nombre' => 'required',
+		'tipo' => 'required',
     ];
 
     protected $perPage = 100;

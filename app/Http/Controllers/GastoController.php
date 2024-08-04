@@ -126,9 +126,19 @@ class GastoController extends Controller
     //Generar reporte de gastos
     public function PDF(){
         $i = 1;
-        $total = 0;
-        $gastos = Gasto::orderBy('fecha','asc')->get();
-        $pdf = PDF::loadview('gasto.reporte', compact('gastos','total','i'));
+        $ingresos = 0;
+        $egresos = 0;
+        $gastos_ingresos = Gasto::orderBy('fecha','asc')
+            ->whereHas('tipoGasto', function ($query) {
+                $query->where('tipo', 'Ingreso');
+            })->get();
+
+        $gastos_egresos = Gasto::orderBy('fecha','asc')
+            ->whereHas('tipoGasto', function ($query) {
+                $query->where('tipo', 'Egreso');
+            })->get();
+
+        $pdf = PDF::loadview('gasto.reporte', compact('gastos_ingresos','gastos_egresos','ingresos','egresos','i'));
         $pdf->set_paper('letter', 'landscape');
         return $pdf->stream('reporte.pdf');
     }

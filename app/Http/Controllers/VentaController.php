@@ -56,7 +56,7 @@ class VentaController extends Controller
             'valor' => $request['total'],
             'fecha' => now(),
             'observaciones' => 'Venta realizada - #' . $request['codigo'],
-            'id_tipo_gasto' => '13'
+            'id_tipo_gasto' => '1'
         ]);
 
         $respuesta = $this->actualizarProducto($this->decodificar($request['listaProductos']));

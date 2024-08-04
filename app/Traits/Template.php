@@ -7,6 +7,7 @@ use App\Models\Producto;
 use App\Models\User;
 use App\Models\Venta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 trait Template
 {
@@ -121,6 +122,9 @@ trait Template
                 'combi_nombre' => $listaproducto->nombre . ' - ' . $listaproducto->codigo_propio . ' - ' . $listaproducto->codigo_escaner,
             ]);
         }
+        // Convertir el array a un string JSON
+        $jsonString = json_encode($respuesta);
+        Log::info($jsonString);
         return $respuesta;
     }
     //Traemos y retornamos los nombres en JSON, segun la libreria Chart.js
