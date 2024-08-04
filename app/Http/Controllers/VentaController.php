@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Venta;
 use App\Models\Cliente;
+use App\Models\Gasto;
 use App\Traits\Template;
 use App\Models\Producto;
 use Illuminate\Http\Request;
@@ -49,6 +50,15 @@ class VentaController extends Controller
             'total' => $request['total'],
             'fecha' => now(),
         ];
+
+        // Registramos esto en el reporte de cuentas
+        Gasto::create([
+            'valor' => $request['total'],
+            'fecha' => now(),
+            'observaciones' => 'Venta realizada - #' . $request['codigo'],
+            'id_tipo_gasto' => '13'
+        ]);
+
         $respuesta = $this->actualizarProducto($this->decodificar($request['listaProductos']));
         if($respuesta){
             $cliente = Cliente::find($data['id_cliente']);
@@ -195,6 +205,7 @@ class VentaController extends Controller
             $model["descripcion"] = $producto["descripcion"];
             $model["cantidad"] = $producto["cantidad"];
             $model["precio"] = $producto["precio"];
+            $model["descuento"] = $producto["descuento"];
             // Incluimos esto a la lista de productos
             array_push($productos, $model);
         }

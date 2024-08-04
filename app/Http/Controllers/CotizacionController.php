@@ -190,6 +190,7 @@ class CotizacionController extends Controller
             $model["descripcion"] = $producto["descripcion"];
             $model["cantidad"] = $producto["cantidad"];
             $model["precio"] = $producto["precio"];
+            $model["descuento"] = $producto["descuento"];
             // Incluimos esto a la lista de productos
             array_push($productos, $model);
         }

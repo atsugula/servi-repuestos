@@ -46,7 +46,7 @@
                             {{ $producto["precio"] }}
                         </th>
                         <th class="mt8">
-                            0
+                            {{ $producto["descuento"] ?? '0' }}%
                         </th>
                         <th class="mt8">
                             {{ $producto["cantidad"] * $producto["precio"] }}
