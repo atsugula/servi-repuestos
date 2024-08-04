@@ -35,6 +35,7 @@
                                         <th>No</th>
 
 										<th>{{ __('Name') }}</th>
+										<th>{{ __('Type') }}</th>
 
                                         <th>{{__('Actions')}}</th>
                                     </tr>
@@ -45,6 +46,7 @@
                                             <td>{{ ++$i }}</td>
 
 											<td>{{ $tipoGasto->nombre }}</td>
+											<td>{{ $tipoGasto->tipo }}</td>
 
                                             <td>
                                                 <form action="{{ route('tipo-gastos.destroy',$tipoGasto->id) }}" method="POST" class="form-delete">

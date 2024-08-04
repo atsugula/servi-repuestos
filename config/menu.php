@@ -49,7 +49,7 @@ return [
         ],
     ],
     [
-        'text'    => 'Gastos',
+        'text'    => 'Estado de cuenta',
         'icon'    => 'fa fa-university',
         'submenu' => [
             [
