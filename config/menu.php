@@ -53,12 +53,12 @@ return [
         'icon'    => 'fa fa-university',
         'submenu' => [
             [
-                'text' => 'Tipos de gasto',
+                'text' => 'Tipos',
                 'url' => 'tipo-gastos',
                 'icon' => 'fa fa-shopping-basket',
             ],
             [
-                'text' => 'Administrar gastos',
+                'text' => 'Administrador',
                 'url' => 'gastos',
                 'icon' => 'fa fa-envelope-open',
             ],
