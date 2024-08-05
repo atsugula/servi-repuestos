@@ -220,7 +220,7 @@ function sumarTotalPrecios(){
             precioConDescuento = precioCosto * (descuento / 100);
         }
 
-        var precioVentaSinDescuento = (Number($(precioItem[i]).val()) * Number($(cantidadItem[i]).val())) - precioConDescuento;
+        var precioVentaSinDescuento = (Number($(precioItem[i]).val()) * Number($(cantidadItem[i]).val())) - (precioConDescuento * Number($(cantidadItem[i]).val()));
         arraySumaPrecios.push(precioVentaSinDescuento);
     }
 

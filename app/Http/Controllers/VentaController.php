@@ -60,6 +60,7 @@ class VentaController extends Controller
         ]);
 
         $respuesta = $this->actualizarProducto($this->decodificar($request['listaProductos']));
+
         if($respuesta){
             $cliente = Cliente::find($data['id_cliente']);
 
