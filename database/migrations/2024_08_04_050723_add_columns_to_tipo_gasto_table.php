@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('gastos', function (Blueprint $table) {
-            $table->id();
-            $table->string('valor');
-            $table->timestamp('fecha');
-            $table->text('observaciones')->nullable();
-            $table->unsignedBigInteger('id_tipo_gasto');
-            $table->foreign('id_tipo_gasto')->references('id')->on('tipo_gastos');
+        Schema::table('tipo_gastos', function (Blueprint $table) {
+            $table->text('tipo')->after('nombre')->default('Egreso');
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gastos');
+        Schema::table('tipo_gastos', function (Blueprint $table) {
+            //
+        });
     }
 };

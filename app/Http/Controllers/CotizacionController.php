@@ -2,45 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Venta;
+use App\Models\Cotizacion;
 use App\Models\Cliente;
-use App\Models\Gasto;
 use App\Traits\Template;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 /**
- * Class VentaController
+ * Class CotizacionController
  * @package App\Http\Controllers
  */
-class VentaController extends Controller
+class CotizacionController extends Controller
 {
     use Template;
 
     public function index()
     {
-        $ventas = Venta::paginate();
+        $cotizaciones = Cotizacion::paginate();
 
-        return view('venta.index', compact('ventas'))
-            ->with('i', (request()->input('page', 1) - 1) * $ventas->perPage());
+        return view('cotizacion.index', compact('cotizaciones'))
+            ->with('i', (request()->input('page', 1) - 1) * $cotizaciones->perPage());
     }
 
     public function create()
     {
-        $venta = new Venta();
+        $venta = new Cotizacion();
         $stocks = [];
         //Para identificar que hacemos en el Form
         $accion = 'crear';
         //Traer código
-        $venta->codigo = VentaController::codigoVenta();
+        $venta->codigo = CotizacionController::codigoVenta();
         //Traer una lista de clientes
         $clientes = Cliente::pluck('nombre','id');
-        return view('venta.create', compact('venta','clientes','stocks','accion'));
+        return view('cotizacion.create', compact('venta','clientes','stocks','accion'));
     }
 
     public function store(Request $request)
     {
-        request()->validate(Venta::$rules);
+        request()->validate(Cotizacion::$rules);
 
         $data = [
             'codigo' => $request['codigo'],
@@ -50,57 +49,43 @@ class VentaController extends Controller
             'total' => $request['total'],
             'fecha' => now(),
         ];
+        
+        /* $cliente = Cliente::find($data['id_cliente']);
 
-        // Registramos esto en el reporte de cuentas
-        Gasto::create([
-            'valor' => $request['total'],
-            'fecha' => now(),
-            'observaciones' => 'Venta realizada - #' . $request['codigo'],
-            'id_tipo_gasto' => '1'
-        ]);
+        $cliente->update([
+            'total_compras'=>$cliente->total_compras+1,
+            'ultima_compra'=>date('Y-m-d'),
+        ]); */
 
-        $respuesta = $this->actualizarProducto($this->decodificar($request['listaProductos']));
-
-        if($respuesta){
-            $cliente = Cliente::find($data['id_cliente']);
-
-            $cliente->update([
-                'total_compras'=>$cliente->total_compras+1,
-                'ultima_compra'=>date('Y-m-d'),
-            ]);
-            Venta::create($data);
-            return redirect()->route('ventas.index')
-                ->with('success', 'Created successfully.');
-        }else{
-            return redirect()->route('ventas.index')
-                ->with('error', 'Alguno de los productos seleccionados no tiene stock.');
-        }
+        Cotizacion::create($data);
+        return redirect()->route('cotizaciones.index')
+            ->with('success', 'Created successfully.');
 
     }
 
     public function show($id)
     {
-        $venta = Venta::find($id);
+        $venta = Cotizacion::find($id);
 
-        return view('venta.show', compact('venta'));
+        return view('cotizacion.show', compact('venta'));
     }
 
     public function edit($id)
     {
-        $venta = Venta::find($id);
+        $venta = Cotizacion::find($id);
         //si no trae nada genere un error
         if(empty($venta))return view('errors.404');
-        $stocks = VentaController::traerProductoVendido($venta->productos);
+        $stocks = CotizacionController::traerProductoVendido($venta->productos);
         //Para identificar que hacemos en el Form
         $accion = 'editar';
         //Traer una lista de clientes
         $clientes = Cliente::pluck('nombre','id');
-        return view('venta.edit', compact('venta','clientes','stocks','accion'));
+        return view('cotizacion.edit', compact('venta','clientes','stocks','accion'));
     }
 
-    public function update(Request $request, Venta $venta)
+    public function update(Request $request, Cotizacion $venta)
     {
-        request()->validate(Venta::$rules);
+        request()->validate(Cotizacion::$rules);
 
         $data = [
             'codigo' => $request['codigo'],
@@ -114,17 +99,17 @@ class VentaController extends Controller
 
         if($respuesta){
             $venta->update($data);
-            return redirect()->route('ventas.index')
+            return redirect()->route('cotizaciones.index')
                 ->with('success', 'Updated successfully.');
         }else{
-            return redirect()->route('ventas.index')
+            return redirect()->route('cotizaciones.index')
                 ->with('error', 'Alguno de los productos seleccionados no tiene stock.');
         }
     }
 
     public function destroy($id)
     {
-        $venta = Venta::find($id);
+        $venta = Cotizacion::find($id);
         $cliente = Cliente::find($venta->id_cliente);
         $this->devolverProductos($this->decodificar($venta->productos));
         $cliente->update([
@@ -134,7 +119,7 @@ class VentaController extends Controller
 
         $venta->delete();
 
-        return redirect()->route('ventas.index')
+        return redirect()->route('cotizaciones.index')
             ->with('success', 'Deleted successfully.');
     }
 
@@ -154,12 +139,12 @@ class VentaController extends Controller
         if($request['fechaInicial'] == null){
             $now = date('d-m-Y');
             $rest = date("d-m-Y",strtotime($now.'- 1 week'));
-            $ventas = Venta::whereBetween('fecha',[$now, $rest])->get();
+            $ventas = Cotizacion::whereBetween('fecha',[$now, $rest])->get();
         }
-        else if($request['fechaInicial'] == $request['fechaFinal'])$ventas = Venta::where('fecha','LIKE','%'.$request['fechaFinal'].'%')->get();
-        else$ventas = Venta::whereBetween('fecha',[$request['fechaInicial'],$request['fechaFinal']])->get();
+        else if($request['fechaInicial'] == $request['fechaFinal'])$ventas = Cotizacion::where('fecha','LIKE','%'.$request['fechaFinal'].'%')->get();
+        else$ventas = Cotizacion::whereBetween('fecha',[$request['fechaInicial'],$request['fechaFinal']])->get();
         //Generamos el pdf
-        $pdf = Pdf::loadview('venta.show', compact('ventas','total','promedio','cantidad','i'));
+        $pdf = Pdf::loadview('cotizacion.show', compact('ventas','total','promedio','cantidad','i'));
         $pdf->set_paper('letter', 'landscape');
         return $pdf->stream('reporte.pdf');
     }
@@ -192,10 +177,9 @@ class VentaController extends Controller
      * @return The PDF is being returned.
      */
     public function facturaVenta($id){
-        $venta = Venta::find($id);
-        $codigo = $venta->codigo;
+        $cotizacion = Cotizacion::find($id);
 
-        $listaProductos = json_decode($venta->productos, true);
+        $listaProductos = json_decode($cotizacion->productos, true);
 
         $productos = [];
 
@@ -211,8 +195,9 @@ class VentaController extends Controller
             array_push($productos, $model);
         }
 
-        $pdf = Pdf::loadview('venta.factura',compact('venta','codigo','productos'));
-        $pdf->setPaper('b7', 'portrait');
+        $codigo = $cotizacion->codigo;
+        $pdf = Pdf::loadview('cotizacion.factura',compact('cotizacion','codigo', 'productos'));
+        $pdf->setPaper('b8', 'portrait');
         return $pdf->stream('reporte.pdf');
     }
 

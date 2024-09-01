@@ -30,7 +30,7 @@
                 ======================================-->
                 <div class="form-group">
                     {{ Form::label('id_cliente',__('Client')) }}
-                    {{ Form::select('id_cliente', $clientes, $venta->id_cliente, ['class' => 'form-control select2' . ($errors->has('id_cliente') ? ' is-invalid' : ''), 'placeholder' => __('Select the client')]) }}
+                    {{ Form::select('id_cliente', $clientes, $venta->id_cliente, ['class' => 'form-control select2' . ($errors->has('id_cliente') ? ' is-invalid' : ''), 'required' => 'required', 'placeholder' => __('Select the client')]) }}
                     {!! $errors->first('id_cliente', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
             </div>
@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="col-12 col-md-2">
                                         <div class="form-group">
-                                            <label for="nuevaCantidad">Ingrese la cantidad a vender</label>
+                                            <label for="nuevaCantidad">Ingrese la cantidad</label>
                                             <input type="number" class="form-control nuevaCantidad" name="nuevaCantidad" min="1" value="'.$value['cantidad'].'" stock="'.$stocks[$key].'" nuevoStock="'.$nuevoStockProducto.'" required>
                                         </div>
                                     </div>
@@ -82,7 +82,7 @@
                                         <label for="nuevaCantidad">Ingrese el precio del producto</label>
                                         <div class="form-group">
                                             <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                            <input type="number" class="form-control nuevoPrecio" name="nuevoPrecio" value="'.$value['precio'].'" min="50"required>
+                                            <input type="number" class="form-control nuevoPrecio" name="nuevoPrecio" value="'.$value['precio'].'" min="50" required>
                                         </div>
                                     </div>
                                 </div>';

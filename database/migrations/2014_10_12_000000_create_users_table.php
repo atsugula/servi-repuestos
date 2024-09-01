@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('apellido', 190);
             $table->char('config')->default('0');
             $table->string('password', 190);
-            $table->bigInteger('cedula');
+            $table->string('cedula');
             $table->string('tipo_usuario', 190);
             $table->rememberToken();
         });

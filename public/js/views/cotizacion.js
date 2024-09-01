@@ -42,7 +42,7 @@ $('.btnAgregarProducto').on('click',function(){
                     '<label for="nuevoPrecio">Ingrese el precio del producto</label>'+
                     '<div class="input-group">'+
                         '<input type="number" class="form-control nuevoPrecio" name="nuevoPrecio" min="50" required>'+
-                        '<input type="number" class="form-control precioCosto" name="precioCosto" min="50" disabled>'+
+                        '<input type="number" class="form-control precioCosto" name="precioCosto" min="50">'+
                         '<button type="button" class="btn btn-danger quitarProducto" idProducto><i class="fa fa-times"></i></button>'+
                     '</div>'+
                 ' </div>'+
@@ -77,7 +77,7 @@ function saldoPendiente(){
 /*==========================================================
 				SELECCIONAR PRODUCTO
 ==========================================================*/
-$('#formVenta').on('change', "select.nuevaDescripcion", function(){
+$('#formCotizacion').on('change', "select.nuevaDescripcion", function(){
 
 	var nuevaDescripcion = $(this).parent().parent().parent().children().children().children(".nuevaDescripcion");
 
@@ -124,7 +124,7 @@ $('#formVenta').on('change', "select.nuevaDescripcion", function(){
 			QUITAMOS EL PRODUCTO EN CUESTION
 ==========================================================*/
 var idQuitarProducto = [];
-$("#formVenta").on("click", "button.quitarProducto", function(){
+$("#formCotizacion").on("click", "button.quitarProducto", function(){
     //Eliminamos el elemento, hasta el div Nuevoproducto
 	$(this).parent().parent().parent().remove();
     //Obtenemos el id del producto
@@ -156,7 +156,7 @@ $("#formVenta").on("click", "button.quitarProducto", function(){
 /*======================================================================
             MODIFICAR EL PRECIO Y APLICAR DESCUENTO
 ======================================================================*/
-$("#formVenta").on("change", "input.nuevoDescuento", function(){
+$("#formCotizacion").on("change", "input.nuevoDescuento", function(){
 	// SUMAR EL TOTAL DE LOS PRECIOS
 	sumarTotalPrecios()
 	// AGRUPAR PRODUCTOS EN FORMATO JSON
@@ -165,7 +165,7 @@ $("#formVenta").on("change", "input.nuevoDescuento", function(){
 /*======================================================================
 			MODIFICAR LA CANTIDAD Y VALIDAR STOCK
 ======================================================================*/
-$("#formVenta").on("change", "input.nuevoPrecio", function(){
+$("#formCotizacion").on("change", "input.nuevoPrecio", function(){
 	// SUMAR EL TOTAL DE LOS PRECIOS
 	sumarTotalPrecios()
 	// AGRUPAR PRODUCTOS EN FORMATO JSON
@@ -174,7 +174,7 @@ $("#formVenta").on("change", "input.nuevoPrecio", function(){
 /*======================================================================
 			MODIFICAR LA CANTIDAD Y VALIDAR STOCK
 ======================================================================*/
-$("#formVenta").on("change", "input.nuevaCantidad", function(){
+$("#formCotizacion").on("change", "input.nuevaCantidad", function(){
     //Tremos el nuevo stock del producto
 	var nuevoStock = Number($(this).attr("stock")) - $(this).val();
 	$(this).attr("nuevoStock", nuevoStock);
@@ -213,7 +213,6 @@ function sumarTotalPrecios(){
     for (var i = 0; i < cantidadItem.length; i++) {
         var precioCosto = Number($(precioCostoItem[i]).val());
         var descuento = Number($(descuentoItem[i]).val());
-
         var precioConDescuento = 0;
 
         // Verificar si el descuento no está vacío y es un número

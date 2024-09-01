@@ -17,6 +17,11 @@ class TipoGastoSeeder extends Seeder
     {
         // Se crean los tipos de gasto que vienen por defecto
         TipoGasto::create([
+            'nombre' => 'INGRESO POR VENTAS',
+            'tipo' => 'Ingreso',
+        ]);
+
+        TipoGasto::create([
             'nombre' => 'RECIBO LUZ',
         ]);
 

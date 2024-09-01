@@ -12,12 +12,16 @@ h1 {
 }
 
 td,
-th,
-tr,
 table {
-    border-top: 1px solid black;
+    border-top: 1px dashed black;
     border-collapse: collapse;
     margin: 0 auto;
+    width: 100%;
+}
+tr,
+th,
+table {
+    line-height: 8px !important;
 }
 
 td.precio {
@@ -25,18 +29,10 @@ td.precio {
     font-size: 11px;
 }
 
-td.cantidad {
-    font-size: 11px;
-}
-
-td.producto {
-    text-align: center;
-}
-
 th {
     text-align: center;
+    width: 100%;
 }
-
 
 .centrado {
     text-align: center;
@@ -44,8 +40,8 @@ th {
 }
 
 .ticket {
-    width: 180px;
-    max-width: 180px;
+    width: 100%;
+    max-width: 100%;
 }
 
 img {
@@ -65,4 +61,50 @@ img {
 
 body {
     text-align: center;
+}
+
+.mt8 {
+    font-size: 8px !important;
+}
+
+.mt8 {
+    font-size: 8px !important;
+}
+
+.mt16 {
+    font-size: 16px !important;
+}
+
+.cabezote {
+    padding: 0 !important;
+    margin-top: 8px !important;
+    line-height: 8px !important;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.cabezote-direccion {
+    position: relative !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    font-weight: bold !important;
+}
+
+.margen-left {
+    margin-left: 10px !important;
+}
+
+.space-border {
+    position: absolute;
+    border-top: 1px dashed black !important;
+    border-collapse: collapse !important;
+    margin: 0 auto !important;
+    width: 100% !important;
 }

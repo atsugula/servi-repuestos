@@ -7,6 +7,7 @@ use App\Models\Producto;
 use App\Models\User;
 use App\Models\Venta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 trait Template
 {
@@ -115,11 +116,15 @@ trait Template
             array_push($respuesta, [
                 'id' => $listaproducto['id'],
                 'stock' => $listaproducto->stock,
-                'nombre' => $listaproducto->nombre . ' - ' . $listaproducto->marca,
+                'nombre' => $listaproducto->nombre . ' - ' . $listaproducto->codigo_propio . ' - ' . $listaproducto->codigo_escaner,
                 'precioVender' => $listaproducto->precio_venta,
-                'combi_nombre' => $listaproducto->nombre . ' ' .$listaproducto->marca,
+                'precioCosto' => $listaproducto->precio_costo,
+                'combi_nombre' => $listaproducto->nombre . ' - ' . $listaproducto->codigo_propio . ' - ' . $listaproducto->codigo_escaner,
             ]);
         }
+        // Convertir el array a un string JSON
+        $jsonString = json_encode($respuesta);
+        Log::info($jsonString);
         return $respuesta;
     }
     //Traemos y retornamos los nombres en JSON, segun la libreria Chart.js

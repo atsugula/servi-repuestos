@@ -17,7 +17,8 @@ class ProductoSeeder extends Seeder
     {
         //Primeros 10
         Producto::create([
-            'codigo' => '1',
+            'codigo_escaner' => '1',
+            'codigo_propio' => '1',
             'nombre' => 'N/A',
             'precio_costo' => 0,
             'porcentaje' => 0,

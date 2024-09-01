@@ -7,6 +7,12 @@
             {!! $errors->first('nombre', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 
+        <div class="form-group">
+            {{ Form::label('tipo',__('Type')) }}
+            {{ Form::select('tipo', ['Ingreso' => 'Ingreso', 'Egreso' => 'Egreso'], $tipoGasto->tipo, ['class' => 'form-control select2' . ($errors->has('tipo') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione un tipo']) }}
+            {!! $errors->first('tipo', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
+
     </div>
     @include('layouts.btn-submit')
 </div>

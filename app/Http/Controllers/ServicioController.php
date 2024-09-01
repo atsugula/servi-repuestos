@@ -61,6 +61,8 @@ class ServicioController extends Controller
         $request['type'] = 1;
 
         $request['ganancia'] = ($request['porcentaje'] / 100) * $request['precio_costo'];
+
+        $$request['stock'] = 10000000;
         
         $data = $request->all();
 
