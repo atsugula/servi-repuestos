@@ -71,7 +71,9 @@
                                             <td>
                                                 <form action="{{ route('ventas.destroy',$venta->id) }}" method="POST" class="form-delete">
                                                     <a class="btn btn-sm btn-primary" target="_blank" href="{{ route('ventas.factura',$venta->id) }}"><i class="fa fa-file"></i></a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('ventas.edit',$venta->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                                    @if ($venta->serie == '0')
+                                                        <a class="btn btn-sm btn-success" href="{{ route('ventas.edit',$venta->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                                    @endif
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>

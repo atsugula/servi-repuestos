@@ -29,9 +29,9 @@ class Venta extends Model
 
     static $rules = [
         'codigo' => 'required',
-		'total' => 'required',
-		'id_cliente' => 'required',
-		'id_usuario' => 'required',
+        'total' => 'required',
+        'id_cliente' => 'required',
+        'id_usuario' => 'required',
     ];
 
     protected $perPage = 100;
@@ -41,7 +41,19 @@ class Venta extends Model
      *
      * @var array
      */
-    protected $fillable = ['codigo','total','productos','fecha','id_cliente','id_usuario','iva','descuento','saldo_pendiente','tipo_pago'];
+    protected $fillable = [
+        'serie',
+        'codigo',
+        'total',
+        'productos',
+        'fecha',
+        'id_cliente',
+        'id_usuario',
+        'iva',
+        'descuento',
+        'saldo_pendiente',
+        'tipo_pago'
+    ];
 
 
     /**
@@ -59,6 +71,4 @@ class Venta extends Model
     {
         return $this->hasOne('App\Models\User', 'id', 'id_usuario');
     }
-
-
 }

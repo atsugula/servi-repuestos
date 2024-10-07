@@ -85,6 +85,27 @@ trait Template
      *
      * @param lista array of objects
      */
+    public function actualizarProductoDevolucion($lista){
+        foreach ($lista as $lis) {
+            // Buscamos el producto
+            $producto = Producto::find($lis['id']);
+            if ($producto->stock != 0){
+                $data = [
+                    'stock' => $lis['stock'] + $lis['cantidad'],
+                ];
+                $producto->update($data);
+            }else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * It takes an array of objects, and updates the database with the values of the objects
+     *
+     * @param lista array of objects
+     */
     public function actualizarProducto($lista){
         foreach ($lista as $lis) {
             $producto = Producto::find($lis['id']);

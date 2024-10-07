@@ -22,6 +22,11 @@ class TipoGastoSeeder extends Seeder
         ]);
 
         TipoGasto::create([
+            'nombre' => 'SALIDA POR VENTAS',
+            'tipo' => 'Devolucion',
+        ]);
+
+        TipoGasto::create([
             'nombre' => 'RECIBO LUZ',
         ]);
 

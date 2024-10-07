@@ -8,6 +8,8 @@ use App\Traits\Template;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+
 /**
  * Class CotizacionController
  * @package App\Http\Controllers
@@ -132,6 +134,8 @@ class CotizacionController extends Controller
      * @return The PDF is being returned.
      */
     public function rangoPDF(Request $request){
+        // Fecha actual
+        $fecha_actual = now();
         $total = 0;
         $promedio = 0;
         $cantidad = 0;
@@ -139,14 +143,18 @@ class CotizacionController extends Controller
         if($request['fechaInicial'] == null){
             $now = date('d-m-Y');
             $rest = date("d-m-Y",strtotime($now.'- 1 week'));
-            $ventas = Cotizacion::whereBetween('fecha',[$now, $rest])->get();
+            // Solo trabajar con fechas, ignorando la hora
+            $ventas = Cotizacion::whereBetween(DB::raw('DATE(fecha)'), [$rest, $now])->get();
         }
         else if($request['fechaInicial'] == $request['fechaFinal'])$ventas = Cotizacion::where('fecha','LIKE','%'.$request['fechaFinal'].'%')->get();
-        else$ventas = Cotizacion::whereBetween('fecha',[$request['fechaInicial'],$request['fechaFinal']])->get();
+        else $ventas = Cotizacion::whereBetween(DB::raw('DATE(fecha)'), [$request['fechaInicial'], $request['fechaFinal']])->get(); // Solo trabajar con fechas, ignorando la hora
         //Generamos el pdf
         $pdf = Pdf::loadview('cotizacion.show', compact('ventas','total','promedio','cantidad','i'));
         $pdf->set_paper('letter', 'landscape');
-        return $pdf->stream('reporte.pdf');
+        // return $pdf->stream('reporte.pdf');
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, "reporte_ventas_$fecha_actual.pdf"); 
     }
 
     /**

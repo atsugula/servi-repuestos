@@ -9,6 +9,8 @@ use App\Traits\Template;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+
 /**
  * Class VentaController
  * @package App\Http\Controllers
@@ -43,6 +45,7 @@ class VentaController extends Controller
         request()->validate(Venta::$rules);
 
         $data = [
+            'serie' => $request['serie'],
             'codigo' => $request['codigo'],
             'id_cliente' => $request['id_cliente'],
             'id_usuario' => $request['id_usuario'],
@@ -51,15 +54,26 @@ class VentaController extends Controller
             'fecha' => now(),
         ];
 
-        // Registramos esto en el reporte de cuentas
-        Gasto::create([
-            'valor' => $request['total'],
-            'fecha' => now(),
-            'observaciones' => 'Venta realizada - #' . $request['codigo'],
-            'id_tipo_gasto' => '1'
-        ]);
-
-        $respuesta = $this->actualizarProducto($this->decodificar($request['listaProductos']));
+        // Si es devolución actualizamos el stock sumandole - queda pendiente saber como lo hacen allá
+        if ($request['serie'] == "1") {
+            $respuesta = $this->actualizarProductoDevolucion($this->decodificar($request['listaProductos']));
+            // Registramos esto en el reporte de cuentas - cuando es devolucion
+            Gasto::create([
+                'valor' => $request['total'],
+                'fecha' => now(),
+                'observaciones' => 'Devolución realizada - #' . $request['codigo'],
+                'id_tipo_gasto' => '2' // Por defecto para realizar el egreso
+            ]);
+        } elseif ($request['serie'] == "0") {
+            $respuesta = $this->actualizarProducto($this->decodificar($request['listaProductos']));
+            // Registramos esto en el reporte de cuentas - cuando es factura normal
+            Gasto::create([
+                'valor' => $request['total'],
+                'fecha' => now(),
+                'observaciones' => 'Venta realizada - #' . $request['codigo'],
+                'id_tipo_gasto' => '1'
+            ]);
+        }
 
         if($respuesta){
             $cliente = Cliente::find($data['id_cliente']);
@@ -103,6 +117,7 @@ class VentaController extends Controller
         request()->validate(Venta::$rules);
 
         $data = [
+            'serie' => $request['serie'],
             'codigo' => $request['codigo'],
             'id_cliente' => $request['id_cliente'],
             'id_usuario' => $request['id_usuario'],
@@ -147,21 +162,27 @@ class VentaController extends Controller
      * @return The PDF is being returned.
      */
     public function rangoPDF(Request $request){
+        // Fecha actual
+        $fecha_actual = now();
         $total = 0;
         $promedio = 0;
         $cantidad = 0;
         $i = 1;
         if($request['fechaInicial'] == null){
-            $now = date('d-m-Y');
-            $rest = date("d-m-Y",strtotime($now.'- 1 week'));
-            $ventas = Venta::whereBetween('fecha',[$now, $rest])->get();
+            $now = date('Y-m-d');
+            $rest = date('Y-m-d', strtotime('-1 week'));
+            // Solo trabajar con fechas, ignorando la hora
+            $ventas = Venta::whereBetween(DB::raw('DATE(fecha)'), [$rest, $now])->get();
         }
         else if($request['fechaInicial'] == $request['fechaFinal'])$ventas = Venta::where('fecha','LIKE','%'.$request['fechaFinal'].'%')->get();
         else$ventas = Venta::whereBetween('fecha',[$request['fechaInicial'],$request['fechaFinal']])->get();
         //Generamos el pdf
         $pdf = Pdf::loadview('venta.show', compact('ventas','total','promedio','cantidad','i'));
         $pdf->set_paper('letter', 'landscape');
-        return $pdf->stream('reporte.pdf');
+        // return $pdf->stream('reporte.pdf');
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, "reporte_ventas_$fecha_actual.pdf"); 
     }
 
     /**
