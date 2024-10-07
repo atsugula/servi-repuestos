@@ -54,7 +54,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('reporte/productos', [ProductoController::class, 'productosPDF'])->name('productos.reporte.pdf');
     Route::get('reportes/productos', [ProductoController::class, 'reportes']);
     Route::get('pdf/gastos', [GastoController::class, 'PDF'])->name('gastos.reporte.pdf');
-    Route::get('ventas/pdf', [VentaController::class, 'rangoPDF'])->name('ventas.rango.pdf');
+    Route::post('ventas/pdf', [VentaController::class, 'rangoPDF'])->name('ventas.rango.pdf');
+    Route::get('ventas/pdf', [VentaController::class, 'rangoPDF'])->name('ventas.rango.pdf.get');
     Route::post('cotizaciones/pdf', [ProductoController::class, 'rangoPDF'])->name('cotizaciones.rango.pdf');
 
     Route::get('products/export', [ProductoController::class, 'exportReport'])->name('productos.reporte.excel');

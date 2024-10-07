@@ -34,7 +34,17 @@
                     {!! $errors->first('id_cliente', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-3">
+                <!--=====================================
+                    ENTRADA PARA EL TIPO DE PAGO
+                ======================================-->
+                <div class="form-group">
+                    {{ Form::label('serie',__('Series')) }}
+                    {{ Form::select('serie', ['Factura','Devolución'], $venta->serie, ['class' => 'form-control select2 serie' . ($errors->has('serie') ? ' is-invalid' : ''), 'required' => 'required', 'placeholder' => __('Select the serie')]) }}
+                    {!! $errors->first('serie', '<div class="invalid-feedback">:message</div>') !!}
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
                 <!--=====================================
                     ENTRADA PARA EL TIPO DE PAGO
                 ======================================-->
